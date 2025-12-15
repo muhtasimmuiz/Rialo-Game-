@@ -128,7 +128,33 @@ function endGame(){
     gameOverEl.style.display='flex';
 }
 
-restartBtn.addEventListener('click',()=>{location.reload();});
+function restartGame(){
+    // Hide game over screen
+    gameOverEl.style.display='none';
+
+    // Reset variables
+    score = 0;
+    timeLeft = 30;
+    gameRunning = true;
+    gameStarted = true;
+
+    // Reset UI
+    scoreEl.innerText = 'RIALO POINT: 0';
+    timerEl.innerText = 'Time: 30';
+    timerEl.classList.remove('timer-warning');
+
+    // Remove all existing balls and effects
+    document.querySelectorAll('.ball').forEach(ball => ball.remove());
+    document.querySelectorAll('.pointEffect').forEach(p => p.remove());
+
+    // Set background
+    const bg = window.innerWidth <= 768 ? 'images/bg_mobile.jpg' : 'images/bg_pc.jpg';
+    setBackground(bg);
+}
+
+// Attach the restart button
+restartBtn.addEventListener('click', restartGame);
+
 backBtn.addEventListener('click',()=>{
     gameOverEl.style.display='none';
     homeEl.style.display='flex';
@@ -184,3 +210,4 @@ highHomeEl.innerText='High Score: '+(localStorage.getItem('rialoHigh')||0);
 </script>
 </body>
 </html>
+
